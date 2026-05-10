@@ -19,7 +19,8 @@ const year = new Date().getFullYear();
           {site.description}
         </p>
         <p class="mt-5 text-xs text-ink-500">
-          {site.company.legalName} · {site.company.address}
+          {site.company.legalName}{site.company.cvr && ` · CVR ${site.company.cvr}`}<br />
+          {site.company.address}
         </p>
       </div>
 
@@ -66,7 +67,7 @@ const year = new Date().getFullYear();
 
     <div class="mt-12 pt-6 border-t border-ink-200 flex flex-col md:flex-row justify-between gap-4 text-xs text-ink-500">
       <p>© {year} {site.company.legalName}. Alle rettigheder forbeholdes.</p>
-      <p>Bygget med Astro · hostet på Cloudflare Pages</p>
+      <p>Bygget med Astro · hostet på Cloudflare</p>
     </div>
   </div>
 </footer>
