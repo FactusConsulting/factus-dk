@@ -24,9 +24,9 @@ export const site = {
   },
   nav: [
     { label: "Ydelser", href: "/#ydelser" },
+    { label: "AI-ydelser ↗", href: "https://ai-ops.dk", external: true },
     { label: "Erfaring", href: "/erfaring" },
     { label: "Om mig", href: "/#om-mig" },
-    { label: "AI-ydelser ↗", href: "https://ai-ops.dk", external: true },
     { label: "Kontakt", href: "/#kontakt" },
   ],
 } as const;
