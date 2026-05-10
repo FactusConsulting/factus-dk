@@ -5,7 +5,7 @@ export const site = {
   url: "https://factus.dk",
   tagline: "DevOps, Platform Engineering og AI for danske virksomheder",
   description:
-    "Selvstændig konsulent med 15+ års erfaring i at bygge, automatisere og drive software-platforme — fra Kubernetes og GitOps til AI-infrastruktur. Hjælper teams og organisationer med at få teknologien til at flugte med forretningen.",
+    "Selvstændig konsulent siden 2006 med 20+ års erfaring i at bygge, automatisere og drive software-platforme — fra Kubernetes og GitOps til AI-infrastruktur. Hjælper teams og organisationer med at få teknologien til at flugte med forretningen.",
   owner: {
     name: "Lars Wolfgang Andersen",
     role: "DevOps · Platform · Kubernetes engineer",
