@@ -1,0 +1,68 @@
+---
+import { site } from "../config/site";
+---
+
+<section id="om-mig" class="section-y bg-white">
+  <div class="container-page">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+      <div class="lg:col-span-5">
+        <div class="aspect-[4/5] rounded-2xl bg-gradient-to-br from-ink-100 via-brand-50 to-accent-100/40 border border-ink-200 overflow-hidden relative">
+          <div class="absolute inset-0 flex items-center justify-center">
+            <span class="text-7xl font-display font-bold text-ink-300 select-none">LWA</span>
+          </div>
+          <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-white via-white/80 to-transparent">
+            <p class="text-xs uppercase tracking-wider font-semibold text-ink-500">{site.owner.location}</p>
+            <p class="font-display font-bold text-lg text-ink-900 mt-1">{site.owner.name}</p>
+            <p class="text-sm text-ink-600 mt-0.5">{site.owner.role}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-7">
+        <span class="eyebrow">Om mig</span>
+        <h2 class="heading-2 mt-3">
+          Bygger broen mellem dev og ops — siden begge ord var nye.
+        </h2>
+        <div class="mt-6 space-y-5 prose-body text-[1.0625rem]">
+          <p>
+            Min baggrund er ret usædvanlig: Jeg startede som regnskabsfører og
+            financial controller, tog en diplomuddannelse i informatik og strategisk
+            management fra CBS, og endte som softwareudvikler og siden DevOps og
+            platform engineer. Den finger på begge sider af bordet — forretning og
+            teknik — har jeg ikke sluppet siden.
+          </p>
+          <p>
+            I mere end 15 år har jeg arbejdet som freelance-konsulent for danske
+            organisationer i alle størrelser — fra Banedanmark og Jyske Bank til
+            Nets, Tryg, Carlsberg, Andel og senest Styrelsen for Arbejdsmarked og
+            Rekruttering. På tværs af opgaver har temaet været det samme: at gøre
+            udvikling, drift og infrastruktur til noget der kan operere som
+            <em>ét hold</em>, ikke tre.
+          </p>
+          <p>
+            De seneste år har AI fyldt mere af paletten. Det er en logisk
+            udvidelse af platform-disciplinen — robust drift, automation, sikkerhed
+            og governance gælder lige så meget for en LLM-platform som for en
+            Kubernetes-cluster. Min dedikerede AI-praksis har fået sit eget hjem på
+            <a href={site.related.aiOps} class="text-brand-700 underline decoration-brand-200 underline-offset-4 hover:decoration-brand-600">ai-ops.dk</a>.
+          </p>
+        </div>
+
+        <div class="mt-10 grid grid-cols-2 gap-x-8 gap-y-5">
+          <div>
+            <p class="text-xs uppercase tracking-wider font-semibold text-ink-500">Kerneområder</p>
+            <p class="mt-2 text-sm text-ink-800 leading-relaxed">
+              Kubernetes · GitOps · Platform Engineering · CI/CD · Cloud-arkitektur · AI-infrastruktur
+            </p>
+          </div>
+          <div>
+            <p class="text-xs uppercase tracking-wider font-semibold text-ink-500">Arbejder med</p>
+            <p class="mt-2 text-sm text-ink-800 leading-relaxed">
+              RKE2 · AKS · FluxCD · Argo CD · Azure DevOps · GitHub Actions · Octopus · Helm · Terraform · Ansible · vLLM · llama.cpp
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
