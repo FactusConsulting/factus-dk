@@ -14,14 +14,14 @@ export const engagements: Engagement[] = [
     tags: ["Kubernetes", "RKE2", "Ansible", "Terraform", "Argo CD"],
   },
   {
-    period: "Jul 2024 – nu",
+    period: "Jul 2024 – jun 2025",
     client: "Andel",
     summary:
       "Design og implementering af on-prem Kubernetes-platforme i OT- og IT-zoner — med fokus på airgapped-deployment.",
     tags: ["Kubernetes", "OT/IT", "Airgapped", "Mentor"],
   },
   {
-    period: "Dec 2023 – mar 2025",
+    period: "Okt 2023 – mar 2025",
     client: "Nota",
     summary:
       "Ny Kubernetes-platform på Rancher RKE2 + GitOps med FluxCD. Etableret HashiCorp Vault til centraliseret secrets-håndtering.",
