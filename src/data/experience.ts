@@ -31,7 +31,7 @@ export const engagements: Engagement[] = [
     period: "Jul 2022 – sep 2023",
     client: "Getinge Digital Health Solutions",
     summary:
-      "Azure DevOps-pipelines og AKS-klynger til både intern udvikling og production for SaaS-produkter. Multi-tenancy-design.",
+      "Azure DevOps-pipelines og AKS-klynger til både intern udvikling og produktion for SaaS-produkter. Multi-tenancy-design.",
     tags: ["Azure DevOps", "AKS", "Helm"],
   },
   {
@@ -74,14 +74,14 @@ export const engagements: Engagement[] = [
     client: "William Demant / DGS / Oticon",
     summary:
       "Arkitekt på integrationer mellem CRM/HR og BizTalk — automatisering af Azure-komponent-deployment under Cloud-First-strategi.",
-    tags: ["Azure", "BizTalk", "Powershell"],
+    tags: ["Azure", "BizTalk", "PowerShell"],
   },
   {
     period: "Jun 2015 – apr 2016",
     client: "Topdanmark",
     summary:
       "Product Owner og Scrum Master + solution architect. Etablerede testdata-infrastruktur til ny SQL Server-baseret platform sideløbende med eksisterende mainframe.",
-    tags: ["Powershell", "SQL Server", "Agile"],
+    tags: ["PowerShell", "SQL Server", "Agile"],
   },
   {
     period: "Mar 2015 – apr 2015",
@@ -109,7 +109,7 @@ export const engagements: Engagement[] = [
     client: "Falck",
     summary:
       "Integrationsarkitekt og udvikler — integrationer mellem nyt callcenter/work-process-system og finansielle backends. Automatisering af deployment-pakker og operations-tooling.",
-    tags: ["BizTalk", "Powershell"],
+    tags: ["BizTalk", "PowerShell"],
   },
   {
     period: "Okt 2011 – apr 2012",
@@ -129,7 +129,7 @@ export const engagements: Engagement[] = [
     client: "Banedanmark",
     summary:
       "Design og implementering af BizTalk-integrationsinfrastruktur — best practice for udvikling, deployment og drift.",
-    tags: ["BizTalk", "Powershell"],
+    tags: ["BizTalk", "PowerShell"],
   },
   {
     period: "2007 – 2008",
