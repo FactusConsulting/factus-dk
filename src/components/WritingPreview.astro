@@ -1,0 +1,134 @@
+---
+// Seneste blogindlæg fra ai-ops.dk, hentet fra feedet ved build-tid.
+//
+// De to sites er samme forretning men hver sit brand, og skriverierne bor på
+// ai-ops.dk. Frem for at duplikere indholdet trækker vi de nyeste tre herover,
+// så factus.dk viser liv uden at eje teksten to steder.
+//
+// Fejler bevidst blødt: en netværkshikke i Cloudflare Pages-buildet må ikke
+// vælte hele factus.dk. Kan vi ikke hente feedet, udelades sektionen, og
+// årsagen står i build-loggen.
+const FEED = "https://ai-ops.dk/rss.xml";
+const MAX_POSTS = 3;
+
+type FeedPost = {
+  title: string;
+  description: string;
+  link: string;
+  date: Date | null;
+};
+
+function unwrap(value: string): string {
+  return value
+    .replace(/^<!\[CDATA\[/, "")
+    .replace(/\]\]>$/, "")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .trim();
+}
+
+// Feedet er vores eget og har en kendt, flad form (@astrojs/rss), så en lille
+// regex-parser er nok — den sparer os for en XML-afhængighed i et statisk site.
+function parseFeed(xml: string): FeedPost[] {
+  const posts: FeedPost[] = [];
+  const itemPattern = /<item>([\s\S]*?)<\/item>/g;
+  let match: RegExpExecArray | null;
+
+  while ((match = itemPattern.exec(xml)) !== null) {
+    const block = match[1];
+    const field = (tag: string): string => {
+      const found = block.match(new RegExp(`<${tag}>([\\s\\S]*?)</${tag}>`));
+      return found ? unwrap(found[1]) : "";
+    };
+
+    const title = field("title");
+    const link = field("link");
+    if (!title || !link) continue;
+
+    const raw = field("pubDate");
+    const parsed = raw ? new Date(raw) : null;
+
+    posts.push({
+      title,
+      description: field("description"),
+      link,
+      date: parsed && !Number.isNaN(parsed.valueOf()) ? parsed : null,
+    });
+  }
+
+  return posts;
+}
+
+let posts: FeedPost[] = [];
+try {
+  const response = await fetch(FEED, { signal: AbortSignal.timeout(10_000) });
+  if (response.ok) {
+    posts = parseFeed(await response.text()).slice(0, MAX_POSTS);
+  } else {
+    console.warn(`[factus.dk] ai-ops.dk-feed svarede ${response.status} — sektionen udelades`);
+  }
+} catch (error) {
+  const reason = error instanceof Error ? error.message : String(error);
+  console.warn(`[factus.dk] kunne ikke hente ai-ops.dk-feed (${reason}) — sektionen udelades`);
+}
+
+const formatter = new Intl.DateTimeFormat("da-DK", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+});
+---
+
+{posts.length > 0 && (
+  <section id="skriverier" class="section-y">
+    <div class="container-page">
+      <div class="flex items-end justify-between flex-wrap gap-6">
+        <div class="max-w-2xl">
+          <span class="eyebrow">Seneste skriverier</span>
+          <h2 class="heading-2 mt-3">Det jeg skriver om, ligger på AI-Ops.</h2>
+          <p class="lead mt-5">
+            AI-arbejdet har sit eget brand — <a href="https://ai-ops.dk" class="text-brand-600 hover:text-brand-700 font-semibold">ai-ops.dk</a> —
+            og det er også dér skriverierne bor. Her er de nyeste tre.
+          </p>
+        </div>
+        <a href="https://ai-ops.dk/blog" class="btn-secondary">
+          Se alle indlæg
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
+      </div>
+
+      <div class="mt-12 grid gap-6 md:grid-cols-3">
+        {posts.map((post) => (
+          <a
+            href={post.link}
+            class="group flex flex-col rounded-xl border border-ink-200 bg-white p-6 transition-all hover:border-brand-600 hover:-translate-y-0.5 hover:shadow-lg"
+          >
+            {post.date && (
+              <time
+                datetime={post.date.toISOString()}
+                class="text-xs font-semibold uppercase tracking-wider text-brand-700"
+              >
+                {formatter.format(post.date)}
+              </time>
+            )}
+            <h3 class="font-display font-bold text-lg text-ink-900 mt-2 leading-snug group-hover:text-brand-700 transition-colors">
+              {post.title}
+            </h3>
+            <p class="prose-body mt-3 text-[0.95rem] line-clamp-4">{post.description}</p>
+            <span class="mt-4 pt-4 border-t border-ink-100 text-sm font-semibold text-brand-600 inline-flex items-center gap-1.5">
+              Læs på ai-ops.dk
+              <svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
