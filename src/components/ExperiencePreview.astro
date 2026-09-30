@@ -1,5 +1,6 @@
 ---
 import { engagements } from "../data/experience";
+import EngagementTimeline from "./EngagementTimeline.astro";
 
 const recent = engagements.slice(0, 5);
 ---
@@ -11,8 +12,9 @@ const recent = engagements.slice(0, 5);
         <span class="eyebrow">Seneste engagementer</span>
         <h2 class="heading-2 mt-3">Hvor jeg har været på arbejde.</h2>
         <p class="lead mt-5">
-          Et udsnit af mine seneste freelance-engagementer. Den fulde liste — over 20
-          opgaver hos danske og nordiske organisationer — privat erhvervsliv såvel som offentlig sektor — finder du på erfaringssiden (20 udvalgte siden 2006).
+          Et udsnit af mine seneste freelance-engagementer. Den fulde liste —
+          {engagements.length} udvalgte opgaver siden 2006 hos danske og nordiske
+          organisationer i både privat og offentlig sektor — finder du på erfaringssiden.
         </p>
       </div>
       <a href="/erfaring" class="btn-secondary">
@@ -23,22 +25,8 @@ const recent = engagements.slice(0, 5);
       </a>
     </div>
 
-    <ol class="mt-12 relative border-l-2 border-ink-200 ml-3">
-      {recent.map((e) => (
-        <li class="relative pl-6 pb-8 last:pb-0">
-          <span class="absolute -left-[7px] top-1.5 w-3 h-3 rounded-full bg-brand-600 ring-4 ring-white"></span>
-          <p class="text-xs font-semibold uppercase tracking-wider text-brand-700">{e.period}</p>
-          <h3 class="font-display font-bold text-lg text-ink-900 mt-1">{e.client}</h3>
-          <p class="prose-body mt-2 text-[0.95rem]">{e.summary}</p>
-          {e.tags && e.tags.length > 0 && (
-            <div class="mt-3 flex flex-wrap gap-2">
-              {e.tags.map((t) => (
-                <span class="px-2.5 py-1 rounded-md bg-white border border-ink-200 text-xs text-ink-700 font-medium">{t}</span>
-              ))}
-            </div>
-          )}
-        </li>
-      ))}
-    </ol>
+    <div class="mt-12">
+      <EngagementTimeline engagements={recent} />
+    </div>
   </div>
 </section>

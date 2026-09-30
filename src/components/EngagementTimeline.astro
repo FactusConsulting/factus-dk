@@ -1,0 +1,41 @@
+---
+import type { Engagement } from "../data/experience";
+import { technologyForTag } from "../data/technologies";
+
+interface Props {
+  engagements: Engagement[];
+  // "compact" til forsiden og undersider, "full" til /erfaring
+  variant?: "compact" | "full";
+  // Farven bag tidslinjen, så prikkens ring flugter med baggrunden
+  ring?: string;
+}
+
+const { engagements, variant = "compact", ring = "ring-white" } = Astro.props;
+const Heading = variant === "full" ? "h2" : "h3";
+---
+
+<ol class="relative border-l-2 border-ink-200 ml-3">
+  {engagements.map((e) => (
+    <li class:list={["relative pl-6 last:pb-0", variant === "full" ? "pb-10" : "pb-8"]}>
+      <span class:list={["absolute -left-[7px] top-1.5 w-3 h-3 rounded-full bg-brand-600 ring-4", ring]}></span>
+      <p class="text-xs font-semibold uppercase tracking-wider text-brand-700">{e.period}</p>
+      <Heading class:list={["font-display font-bold text-ink-900 mt-1", variant === "full" ? "text-xl" : "text-lg"]}>{e.client}</Heading>
+      <p class:list={["prose-body mt-2 text-[0.95rem]", variant === "full" && "max-w-3xl"]}>{e.summary}</p>
+      {e.tags && e.tags.length > 0 && (
+        <div class="mt-3 flex flex-wrap gap-2">
+          {e.tags.map((t) => {
+            const tech = technologyForTag(t);
+            return tech ? (
+              <a
+                href={`/erfaring/${tech.slug}`}
+                class="px-2.5 py-1 rounded-md bg-white border border-ink-200 text-xs text-ink-700 font-medium hover:border-brand-600 hover:text-brand-700 transition-colors"
+              >{t}</a>
+            ) : (
+              <span class="px-2.5 py-1 rounded-md bg-white border border-ink-200 text-xs text-ink-700 font-medium">{t}</span>
+            );
+          })}
+        </div>
+      )}
+    </li>
+  ))}
+</ol>

@@ -1,0 +1,22 @@
+---
+interface Props {
+  title?: string;
+  text?: string;
+}
+
+const {
+  title = "Søger I lignende kompetencer?",
+  text = "Jeg er tilgængelig for nye opgaver inden for DevOps, platform engineering, Kubernetes og AI-infrastruktur. Ræk ud, så tager vi en snak.",
+} = Astro.props;
+---
+
+<div class="p-8 md:p-10 rounded-2xl bg-gradient-to-br from-ink-900 to-brand-900 text-white">
+  <h2 class="font-display text-2xl md:text-3xl font-bold tracking-tight">{title}</h2>
+  <p class="mt-3 text-ink-200 max-w-2xl">{text}</p>
+  <a href="/#kontakt" class="mt-6 inline-flex items-center gap-2 bg-white text-ink-900 px-5 py-3 rounded-lg font-semibold text-sm hover:bg-ink-100 transition-colors">
+    Kontakt mig
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+    </svg>
+  </a>
+</div>

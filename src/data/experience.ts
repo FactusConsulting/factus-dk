@@ -46,7 +46,7 @@ export const engagements: Engagement[] = [
     client: "Nets Group",
     summary:
       "Platform-team for stort .NET-program. Custom Octopus-tooling til komplekse deployment-scenarier samt best practice-coaching i Octopus og Jenkins.",
-    tags: ["Octopus", "Jenkins", ".NET"],
+    tags: ["Octopus", "Jenkins", ".NET", "Coaching"],
   },
   {
     period: "Nov 2019 – apr 2020",
@@ -60,14 +60,14 @@ export const engagements: Engagement[] = [
     client: "Tryg",
     summary:
       "DevOps-engineer i SAFe-program. Implementering af manglende tooling, coaching i DevOps-mindset, CI/CD-pipeline til microservices.",
-    tags: ["GitLab", "Chef", "Docker", "GOSU"],
+    tags: ["GitLab", "Chef", "Docker", "GOSU", "Coaching"],
   },
   {
     period: "Jul 2016 – feb 2019",
     client: "Jyske Bank / BRFKredit",
     summary:
       "ALM-team og senere DevOps Services-team — coaching og tooling til hele organisationens .NET-udvikling. Drev XAML→Team Builds-transformation.",
-    tags: ["TFS", "Octopus", "Docker", "Kubernetes"],
+    tags: ["TFS", "Octopus", "Docker", "Kubernetes", "Coaching"],
   },
   {
     period: "Mar 2016 – jun 2016",
