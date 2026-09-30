@@ -1,0 +1,53 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import EngagementTimeline from "../../components/EngagementTimeline.astro";
+import CtaBanner from "../../components/CtaBanner.astro";
+import { engagements } from "../../data/experience";
+import { technologies, technologyCategories } from "../../data/technologies";
+---
+
+<BaseLayout
+  title="Erfaring"
+  description="Komplet liste over Lars W. Andersens freelance-engagementer som DevOps-, platform- og Kubernetes-konsulent siden 2006."
+>
+  <section class="bg-white border-b border-ink-100">
+    <div class="container-page pt-20 md:pt-28 pb-12">
+      <span class="eyebrow">Erfaring</span>
+      <h1 class="heading-1 mt-4 max-w-3xl">Selvstændig siden 2006 — {engagements.length} udvalgte engagementer.</h1>
+      <p class="lead mt-6 max-w-2xl">
+        Kronologisk oversigt over de organisationer jeg har arbejdet med, og hvad jeg
+        har lavet hos dem. Fra .NET- og integrationsopgaver i 2006 til Kubernetes-platforme,
+        GitOps og AI-infrastruktur i dag.
+      </p>
+
+      <div class="mt-12">
+        <h2 class="text-xs font-semibold uppercase tracking-wider text-ink-500">Erfaring efter teknologi</h2>
+        <div class="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {technologyCategories.map((category) => (
+            <div>
+              <p class="text-sm font-semibold text-ink-900">{category}</p>
+              <div class="mt-2 flex flex-wrap gap-2">
+                {technologies.filter((t) => t.category === category).map((t) => (
+                  <a
+                    href={`/erfaring/${t.slug}`}
+                    class="px-2.5 py-1 rounded-md bg-ink-50 border border-ink-200 text-xs text-ink-700 font-medium hover:border-brand-600 hover:text-brand-700 transition-colors"
+                  >{t.name}</a>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-y bg-ink-50/50">
+    <div class="container-page">
+      <EngagementTimeline engagements={engagements} variant="full" ring="ring-ink-50/50" />
+
+      <div class="mt-16">
+        <CtaBanner />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

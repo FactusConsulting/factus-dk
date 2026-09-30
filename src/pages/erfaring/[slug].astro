@@ -1,0 +1,102 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import EngagementTimeline from "../../components/EngagementTimeline.astro";
+import CtaBanner from "../../components/CtaBanner.astro";
+import { technologies, engagementsWithTags, type Technology } from "../../data/technologies";
+import { services, serviceHref } from "../../data/services";
+
+export function getStaticPaths() {
+  return technologies.map((technology) => ({
+    params: { slug: technology.slug },
+    props: { technology },
+  }));
+}
+
+interface Props {
+  technology: Technology;
+}
+
+const { technology } = Astro.props;
+const matches = engagementsWithTags(technology.tags);
+const relatedServices = services.filter((s) => s.technologies.includes(technology.slug));
+const otherTechnologies = technologies.filter(
+  (t) => t.slug !== technology.slug && t.category === technology.category,
+);
+---
+
+<BaseLayout
+  title={`${technology.name} — erfaring`}
+  description={`${technology.summary} ${matches.length} engagementer som freelance-konsulent.`}
+>
+  <section class="bg-white border-b border-ink-100">
+    <div class="container-page pt-12 md:pt-16 pb-12">
+      <Breadcrumbs items={[{ label: "Erfaring", href: "/erfaring" }, { label: technology.name }]} />
+      <span class="eyebrow mt-10">{technology.category}</span>
+      <h1 class="heading-1 mt-4 max-w-3xl">Erfaring med {technology.name}</h1>
+      <p class="lead mt-6 max-w-2xl">{technology.summary}</p>
+      <div class="mt-6 space-y-4 prose-body text-[1.0625rem] max-w-3xl">
+        {technology.body.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-y bg-ink-50/50">
+    <div class="container-page">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <div class="lg:col-span-8">
+          <h2 class="heading-2">
+            {matches.length} {matches.length === 1 ? "engagement" : "engagementer"}
+          </h2>
+          <p class="lead mt-4">Opgaver hvor {technology.name} har været en central del af arbejdet.</p>
+          <div class="mt-10">
+            <EngagementTimeline engagements={matches} ring="ring-ink-50/50" />
+          </div>
+        </div>
+
+        <aside class="lg:col-span-4 space-y-10">
+          {relatedServices.length > 0 && (
+            <div>
+              <h2 class="text-xs font-semibold uppercase tracking-wider text-ink-500">Relaterede ydelser</h2>
+              <ul class="mt-4 space-y-2">
+                {relatedServices.map((s) => (
+                  <li>
+                    <a
+                      href={serviceHref(s)}
+                      class="group flex items-center justify-between gap-3 rounded-lg border border-ink-200 bg-white px-4 py-3 text-sm font-semibold text-ink-900 hover:border-brand-600 transition-colors"
+                    >
+                      {s.title}
+                      <svg class="w-4 h-4 text-brand-600 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                      </svg>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {otherTechnologies.length > 0 && (
+            <div>
+              <h2 class="text-xs font-semibold uppercase tracking-wider text-ink-500">Andet inden for {technology.category}</h2>
+              <div class="mt-4 flex flex-wrap gap-2">
+                {otherTechnologies.map((t) => (
+                  <a
+                    href={`/erfaring/${t.slug}`}
+                    class="px-2.5 py-1 rounded-md bg-white border border-ink-200 text-xs text-ink-700 font-medium hover:border-brand-600 hover:text-brand-700 transition-colors"
+                  >{t.name}</a>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <a href="/erfaring" class="btn-secondary w-full">Se al erfaring</a>
+        </aside>
+      </div>
+
+      <div class="mt-16">
+        <CtaBanner />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
