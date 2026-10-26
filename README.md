@@ -21,7 +21,8 @@ npm run dev   # starter dev-server på http://localhost:4321
 | :-- | :-- |
 | Navn, email, telefon, LinkedIn, navigation, firma | `src/config/site.ts` |
 | Hero-tekst (forsidens topafsnit) | `src/components/Hero.astro` |
-| Ydelses-kort (de 6 services) | `src/components/Services.astro` |
+| Ydelser — kort på forsiden og undersider under `/ydelser/<slug>` | `src/data/services.ts` |
+| Teknologi-sider under `/erfaring/<slug>` | `src/data/technologies.ts` |
 | "Om mig" tekst og facts | `src/components/About.astro` |
 | Erfaringsliste (kunder + opgaver) | `src/data/experience.ts` |
 | Kontakt-sektion | `src/components/Contact.astro` |
@@ -43,7 +44,11 @@ npm run dev   # starter dev-server på http://localhost:4321
 },
 ```
 
-Forsiden viser de 5 nyeste, og `/erfaring` viser hele listen.
+Forsiden viser de 5 nyeste, og `/erfaring` viser hele listen. Tags der matcher en teknologi i `src/data/technologies.ts` bliver automatisk til links, og engagementet dukker op på teknologi-siden og på de ydelses-sider, hvis `engagementTags` matcher.
+
+### Tilføj en teknologi-side
+
+Tilføj et objekt til `technologies` i `src/data/technologies.ts`. Listen er bevidst kurateret til det, der arbejdes med i dag (DevOps, platform, infrastruktur) — ældre teknologi som BizTalk får ikke egne sider.
 
 ### Skift profil-billede
 
